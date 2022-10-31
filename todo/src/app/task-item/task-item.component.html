@@ -1,0 +1,60 @@
+<div
+  class="card p-1 m-1 shadow-sm taskItem"
+  [class.done]="task.done"
+  [class.low]="task.priority === 'Low' && !task.done"
+  [class.medium]="task.priority === 'Medium' && !task.done"
+  [class.high]="task.priority === 'High' && !task.done"
+>
+  <div class="mb-2 d-flex justify-content-between align-items-center">
+    <div class="d-flex">
+      <input
+        class="me-1"
+        type="checkbox"
+        [ngModel]="task.done"
+        (change)="completeTask($event.target)"
+      /><span>done</span>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="me-1 p-0 btn text-warning"
+        data-bs-toggle="modal"
+        data-bs-target="#editTask"
+        (click)="selectTask()"
+      >
+        <em class="bi bi-pen-fill"></em>
+      </button>
+      <app-edit-task></app-edit-task>
+      <button class="p-0 btn text-danger" (click)="deleteTask()">
+        <em class="bi bi-trash3-fill"></em>
+      </button>
+    </div>
+  </div>
+  <p class="mb-2 fw-bold taskName">{{ task.name }}</p>
+  <div class="mb-2 d-flex justify-content-between">
+    <span style="font-size: 14px" class="taskPriority">
+      <em
+        class="bi bi-chevron-compact-up text-danger"
+        *ngIf="task.priority === 'High'"
+      ></em>
+      <em class="text-warning" *ngIf="task.priority === 'Medium'">=</em>
+      <em
+        class="bi bi-chevron-compact-down text-primary"
+        *ngIf="task.priority === 'Low'"
+      ></em>
+      {{ task.priority }}</span
+    >
+    <span style="font-size: 14px"
+      ><em class="bi bi-clock-history"></em> {{ task.deadline }}</span
+    >
+  </div>
+  <p class="mb-0 taskDescription">{{ task.description }}</p>
+  <hr class="my-1" *ngIf="task.tags.length" />
+  <div class="d-flex flex-wrap">
+    <span
+      class="me-1 mb-1 badge rounded-pill text-dark bg-warning taskTag"
+      *ngFor="let tag of task.tags"
+      >{{ tag }}</span
+    >
+  </div>
+</div>

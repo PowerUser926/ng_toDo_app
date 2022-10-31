@@ -1,0 +1,125 @@
+<div
+  class="modal fade"
+  id="editTask"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="editTaskLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form #editTaskForm="ngForm" (ngSubmit)="editTask(editTaskForm)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTaskLabel">Edit Task</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="resetForm(editTaskForm)"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="editTaskName" class="form-label text-primary"
+              >Name</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="editTaskName"
+              name="editTaskName"
+              placeholder="task name"
+              ngModel="{{ task.name }}"
+            />
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="mb-3" style="width: 47%">
+              <label for="editTaskDeadline" class="form-label text-primary"
+                >Deadline</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="editTaskDeadline"
+                name="editTaskDeadline"
+                ngModel="{{ task.deadline }}"
+              />
+            </div>
+            <div class="mb-3" style="width: 47%">
+              <label for="editTaskPriority" class="form-label text-primary"
+                >Priority</label
+              >
+              <select
+                id="editTaskPriority"
+                name="editTaskPriority"
+                class="form-select"
+                aria-label="Default select example"
+                ngModel="{{ task.priority }}"
+              >
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="editTaskDescription" class="form-label text-primary"
+              >Description</label
+            >
+            <textarea
+              class="form-control"
+              id="editTaskDescription"
+              name="editTaskDescription"
+              rows="3"
+              ngModel="{{ task.description }}"
+            ></textarea>
+          </div>
+          <div class="position-relative">
+            <label class="me-2 form-label text-primary" for="editTaskTag"
+              >Tags:
+            </label>
+            <input
+              type="text"
+              maxlength="20"
+              id="editTaskTag"
+              class="border-0 border-bottom"
+              [disabled]="tags.length >= 5"
+              placeholder="task tag"
+              #editTaskTagInp
+            />
+            <button
+              type="button"
+              class="btn editTaskAddTag"
+              (click)="addTag(editTaskTagInp)"
+            >
+              <em class="bi bi-caret-right-fill"></em>
+            </button>
+            <div class="tags">
+              <span
+                class="me-1 mb-1 badge rounded-pill text-dark bg-warning"
+                *ngFor="let tag of tags"
+                >{{ tag }}
+                <button class="p-0 btn text-danger" (click)="removeTag(tag)">
+                  <em class="bi bi-x-circle-fill"></em></button
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            [disabled]="editTaskForm.form.status === 'INVALID'"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

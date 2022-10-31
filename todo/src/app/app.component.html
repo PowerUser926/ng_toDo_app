@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div
+  class="w-100 d-flex justify-content-center align-items-center"
+  style="height: calc(100vh - 58px)"
+  *ngIf="!tasks.length"
+>
+  <h4 class="text-secondary">No more tasks</h4>
+</div>
+<main class="mt-2 px-5" *ngIf="tasks.length">
+  <app-search-task></app-search-task>
+  <ul class="my-2 ms-auto nav nav-pills border rounded" style="width: 189px">
+    <li class="nav-item border-right">
+      <a
+        routerLink="/all_tasks"
+        routerLinkActive="active"
+        class="nav-link py-0"
+        (click)="getTasks()"
+      >
+        All
+      </a>
+    </li>
+    <li class="nav-item border-right">
+      <a
+        routerLink="/daily_tasks"
+        routerLinkActive="active"
+        class="nav-link py-0"
+        (click)="getTasks()"
+      >
+        D
+      </a>
+    </li>
+    <li class="nav-item border-right">
+      <a
+        routerLink="/weekly_tasks"
+        routerLinkActive="active"
+        class="nav-link py-0"
+        (click)="getTasks()"
+      >
+        W
+      </a>
+    </li>
+    <li class="nav-item border-right">
+      <a
+        routerLink="/monthly_tasks"
+        routerLinkActive="active"
+        class="nav-link py-0"
+        (click)="getTasks()"
+      >
+        M
+      </a>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
+</main>

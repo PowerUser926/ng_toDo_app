@@ -1,0 +1,139 @@
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#addTask"
+>
+  <em class="bi bi-plus-circle"></em> New Task
+</button>
+
+<div
+  class="modal fade"
+  id="addTask"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form #addTaskForm="ngForm" (ngSubmit)="addTask(addTaskForm)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add New Task</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="resetForm(addTaskForm)"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="taskName" class="form-label text-primary">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="taskName"
+              name="taskName"
+              placeholder="task name"
+              ngModel
+              required
+            />
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="mb-3" style="width: 47%">
+              <label for="taskDeadline" class="form-label text-primary"
+                >Deadline</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="taskDeadline"
+                name="taskDeadline"
+                ngModel="{{ currentDate }}"
+                required
+              />
+            </div>
+            <div class="mb-3" style="width: 47%">
+              <label for="taskPriority" class="form-label text-primary"
+                >Priority</label
+              >
+              <select
+                id="taskPriority"
+                name="taskPriority"
+                class="form-select"
+                aria-label="Default select example"
+                ngModel="{{ priority }}"
+                required
+              >
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="taskDescription" class="form-label text-primary"
+              >Description</label
+            >
+            <textarea
+              class="form-control"
+              id="taskDescription"
+              name="taskDescription"
+              rows="3"
+              ngModel
+              required
+            ></textarea>
+          </div>
+          <div class="position-relative">
+            <label class="me-2 form-label text-primary" for="taskTag"
+              >Tags:
+            </label>
+            <input
+              type="text"
+              maxlength="20"
+              id="taskTag"
+              name="taskTag"
+              class="border-0 border-bottom"
+              [disabled]="tags.length >= 5"
+              placeholder="task tag"
+              ngModel
+              #addTaskTagInp
+            />
+            <button
+              type="button"
+              class="btn addTag"
+              *ngIf="addTaskTagInp.value !== ''"
+              (click)="addTag(addTaskTagInp)"
+            >
+              <em class="bi bi-caret-right-fill"></em>
+            </button>
+            <div class="tags">
+              <span
+                class="me-1 mb-1 badge rounded-pill text-dark bg-warning"
+                *ngFor="let tag of tags"
+                >{{ tag }}
+                <button class="p-0 btn text-danger" (click)="removeTag(tag)">
+                  <em class="bi bi-x-circle-fill"></em></button
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            [disabled]="addTaskForm.form.status === 'INVALID'"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

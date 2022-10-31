@@ -1,0 +1,14 @@
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping"
+    ><em class="bi bi-search"></em
+  ></span>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search"
+    aria-label="searchTask"
+    aria-describedby="addon-wrapping"
+    (keyup)="searchTask(searchTaskInp.value)"
+    #searchTaskInp
+  />
+</div>
